@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A modern multi-marketplace deals storefront." />
+  <title>Dealora — Smart Marketplace Deals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#" onclick="goHome(); return false;" aria-label="Dealora home">
+        <span class="brand-mark">D</span>
+        <span>Dealora</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#deals">Deals</a>
+        <a href="#categories">Categories</a>
+        <a href="#wishlist">Wishlist <span class="count-pill" id="wishlistCount">0</span></a>
+      </nav>
+
+      <div class="top-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">◐</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open navigation">☰</button>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home">Home</a>
+      <a href="#deals">Deals</a>
+      <a href="#categories">Categories</a>
+      <a href="#wishlist">Wishlist</a>
+    </div>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <span class="eyebrow">SMART SHOPPING • MULTIPLE MARKETPLACES</span>
+          <h1>Great products.<br><span>Better deals.</span></h1>
+          <p>Discover hand-picked products across marketplaces and jump straight to the original seller when you're ready to buy.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#deals">Explore deals <span>→</span></a>
+            <button class="btn btn-secondary" type="button" onclick="document.getElementById('searchInput').focus()">Search products</button>
+          </div>
+
+          <div class="trust-row">
+            <span>✓ Curated products</span>
+            <span>✓ Marketplace links</span>
+            <span>✓ Wishlist saved locally</span>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="glow glow-blue"></div>
+          <div class="glow glow-orange"></div>
+          <div class="hero-card hero-card-main">
+            <div class="hero-card-top">
+              <span class="mini-label">TODAY'S DEAL</span>
+              <span class="deal-chip">-45%</span>
+            </div>
+            <div class="product-visual gradient-blue">
+              <span>⌁</span>
+            </div>
+            <div class="hero-product-lines">
+              <strong>Wireless Audio Pro</strong>
+              <div><span class="price">₹1,299</span> <span class="old-price">₹2,399</span></div>
+            </div>
+          </div>
+          <div class="floating-pill pill-one">Amazon</div>
+          <div class="floating-pill pill-two">Flipkart</div>
+          <div class="floating-pill pill-three">Myntra</div>
+        </div>
+      </section>
+
+      <section class="toolbar-section" id="deals">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">DISCOVER</span>
+            <h2>Popular deals</h2>
+          </div>
+          <p id="resultsLabel">0 products</p>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-box" for="searchInput">
+            <span>⌕</span>
+            <input id="searchInput" type="search" placeholder="Search products, categories or marketplaces..." autocomplete="off" />
+          </label>
+
+          <select id="categoryFilter" class="select-control" aria-label="Filter by category">
+            <option value="All">All categories</option>
+          </select>
+
+          <select id="sortFilter" class="select-control" aria-label="Sort products">
+            <option value="featured">Featured</option>
+            <option value="priceLow">Price: Low to high</option>
+            <option value="priceHigh">Price: High to low</option>
+            <option value="discountHigh">Biggest discount</option>
+            <option value="nameAZ">Name: A to Z</option>
+          </select>
+        </div>
+
+        <div class="category-strip" id="categories">
+          <button class="category-pill active" data-category="All">All</button>
+          <button class="category-pill" data-category="Electronics">Electronics</button>
+          <button class="category-pill" data-category="Gaming">Gaming</button>
+          <button class="category-pill" data-category="Fashion">Fashion</button>
+          <button class="category-pill" data-category="Home">Home</button>
+          <button class="category-pill" data-category="Accessories">Accessories</button>
+          <button class="category-pill" data-category="Gadgets">Gadgets</button>
+        </div>
+      </section>
+
+      <section class="product-area" aria-live="polite">
+        <div class="product-grid" id="productGrid"></div>
+        <div class="empty-state hidden" id="emptyState">
+          <div class="empty-icon">⌕</div>
+          <h3>No matching products</h3>
+          <p>Try another search term or clear your filters.</p>
+          <button class="btn btn-secondary" type="button" id="clearFiltersBtn">Clear filters</button>
+        </div>
+      </section>
+
+      <section class="wishlist-section" id="wishlist">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">YOUR SAVED ITEMS</span>
+            <h2>Wishlist</h2>
+          </div>
+          <p id="wishlistHint">Saved in this browser</p>
+        </div>
+        <div class="wishlist-grid" id="wishlistGrid"></div>
+        <div class="empty-state" id="wishlistEmpty">
+          <div class="empty-icon">♡</div>
+          <h3>Your wishlist is empty</h3>
+          <p>Tap the heart on any product to save it here.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <a class="brand footer-brand" href="#" onclick="goHome(); return false;">
+          <span class="brand-mark">D</span>
+          <span>Dealora</span>
+        </a>
+        <p>Curated marketplace deals in one clean storefront.</p>
+      </div>
+      <div class="footer-meta">
+        <span>© 2026 Dealora</span>
+        <span>Prices and availability belong to the original marketplace.</span>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal hidden" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+      <div class="modal-image-wrap">
+        <img id="modalImage" src="" alt="" />
+        <span class="deal-badge" id="modalDiscount"></span>
+      </div>
+      <div class="modal-copy">
+        <div class="marketplace-badge" id="modalMarketplace"></div>
+        <h2 id="modalTitle"></h2>
+        <div class="modal-prices">
+          <span class="modal-price" id="modalPrice"></span>
+          <span class="modal-old-price" id="modalOldPrice"></span>
+        </div>
+        <p id="modalDescription"></p>
+        <div class="modal-meta">
+          <span id="modalCategory"></span>
+          <span id="modalDiscountText"></span>
+        </div>
+        <a id="modalBuyNow" class="btn btn-primary btn-full" href="#" target="_blank" rel="noopener noreferrer">Buy Now ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
